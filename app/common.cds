@@ -9,6 +9,8 @@ annotate rm.Risks with {
     descr  @title : 'Description';
     miti   @title : 'Mitigation';
     impact @title : 'Impact';
+    bp @title : 'Business Partner';
+    criticality @title : 'Criticality';
 }
 
 // Annotate Miti elements
@@ -19,6 +21,15 @@ annotate rm.Mitigations with {
     );
     owner @title : 'Owner';
     descr @title : 'Description';
+}
+
+annotate rm.BusinessPartners with {
+    BusinessPartner @(
+        UI.Hidden,
+        Common: {Text : LastName}
+    );
+    LastName  @title : 'Last Name';
+    FirstName @title : 'First Name';
 }
 
 annotate rm.Risks with {
@@ -38,6 +49,29 @@ annotate rm.Risks with {
                 {
                     $Type : 'Common.ValueListParameterDisplayOnly',
                     ValueListProperty : 'descr'
+                }
+            ]
+        }
+    });
+    bp @(Common : {
+        Text : bp.LastName,
+        TextArrangement : #TextOnly,
+        ValueList : {
+            Label : 'Business Partners',
+            CollectionPath : 'BusinessPartners',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : bp_BusinessPartner,
+                    ValueListProperty : 'BusinessPartner'
+                },
+                {
+                    $Type : 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty : 'LastName'
+                },
+                {
+                    $Type : 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty : 'FirstName'
                 }
             ]
         }
